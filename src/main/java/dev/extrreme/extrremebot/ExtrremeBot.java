@@ -21,9 +21,13 @@ public class ExtrremeBot {
     public static JDA jda;
 
     public static void main(String[] args) {
+        System.out.println("Starting bot...");
         if (startBot()) {
+            System.out.println("Successfully started bot");
             registerCommands();
             musicManager = new MusicManagerManager();
+        } else {
+            System.out.println("Failed to start bot");
         }
     }
 

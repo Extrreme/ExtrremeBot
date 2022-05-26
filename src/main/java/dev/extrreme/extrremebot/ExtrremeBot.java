@@ -1,6 +1,5 @@
 package dev.extrreme.extrremebot;
 
-import dev.extrreme.api.ValorantApi;
 import dev.extrreme.extrremebot.audio.MusicManagerManager;
 import dev.extrreme.extrremebot.commands.misc.HelpCommand;
 import dev.extrreme.extrremebot.commands.misc.StockCommand;
@@ -8,8 +7,7 @@ import dev.extrreme.extrremebot.commands.CommandManager;
 import dev.extrreme.extrremebot.commands.music.MusicPlayCommand;
 import dev.extrreme.extrremebot.commands.music.MusicRepeatCommand;
 import dev.extrreme.extrremebot.commands.music.MusicSkipCommand;
-import dev.extrreme.extrremebot.commands.valapi.AgentsCommand;
-import dev.extrreme.extrremebot.commands.valapi.TrackerCommand;
+import dev.extrreme.extrremebot.commands.valorant.TrackerCommand;
 import dev.extrreme.extrremebot.listener.CommandListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -22,13 +20,10 @@ public class ExtrremeBot {
     public static MusicManagerManager musicManager;
     public static JDA jda;
 
-    public static ValorantApi valorantApi;
-
     public static void main(String[] args) {
         if (startBot()) {
             registerCommands();
             musicManager = new MusicManagerManager();
-            valorantApi = new ValorantApi();
         }
     }
 
@@ -46,7 +41,6 @@ public class ExtrremeBot {
         commandManager.registerCommand(new MusicRepeatCommand());
 
         commandManager.registerCommand(new TrackerCommand());
-        commandManager.registerCommand(new AgentsCommand());
     }
 
     private static boolean startBot() {

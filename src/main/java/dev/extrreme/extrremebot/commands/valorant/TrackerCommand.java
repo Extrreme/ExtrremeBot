@@ -1,4 +1,4 @@
-package dev.extrreme.extrremebot.commands.valapi;
+package dev.extrreme.extrremebot.commands.valorant;
 
 import dev.extrreme.extrremebot.commands.DiscordCommand;
 import net.dv8tion.jda.api.EmbedBuilder;

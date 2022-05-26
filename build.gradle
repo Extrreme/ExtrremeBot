@@ -30,3 +30,7 @@ dependencies {
     implementation group: 'dev.extrreme', name: 'Valorant-API', version: '1.0'
     // implementation('com.google.code.gson:gson:2.8.9')
 }
+
+task stage(dependsOn: ['build', 'shadowJar', 'clean', 'test'])
+build.mustRunAfter clean
+build.mustRunAfter test

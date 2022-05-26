@@ -4,6 +4,7 @@ import dev.extrreme.extrremebot.audio.MusicManagerManager;
 import dev.extrreme.extrremebot.commands.misc.HelpCommand;
 import dev.extrreme.extrremebot.commands.misc.StockCommand;
 import dev.extrreme.extrremebot.commands.CommandManager;
+import dev.extrreme.extrremebot.commands.misc.TranslateCommand;
 import dev.extrreme.extrremebot.commands.music.MusicPlayCommand;
 import dev.extrreme.extrremebot.commands.music.MusicRepeatCommand;
 import dev.extrreme.extrremebot.commands.music.MusicSkipCommand;
@@ -45,6 +46,8 @@ public class ExtrremeBot {
         commandManager.registerCommand(new MusicRepeatCommand());
 
         commandManager.registerCommand(new TrackerCommand());
+
+        commandManager.registerCommand(new TranslateCommand());
     }
 
     private static boolean startBot() {

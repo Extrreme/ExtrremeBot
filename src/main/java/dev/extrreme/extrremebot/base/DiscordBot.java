@@ -17,8 +17,9 @@ public class DiscordBot {
     private JDA jda = null;
     private CommandManager commandManager = null;
 
-    public DiscordBot(@NotNull String token) {
+    public DiscordBot(@NotNull String token) throws LoginException {
         this.token = token;
+        start();
     }
 
     public void registerCommand(DiscordCommand command) {

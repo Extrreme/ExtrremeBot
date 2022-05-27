@@ -9,11 +9,13 @@ import dev.extrreme.extrremebot.commands.music.MusicRepeatCommand;
 import dev.extrreme.extrremebot.commands.music.MusicSkipCommand;
 import dev.extrreme.extrremebot.commands.valorant.TrackerCommand;
 
+import javax.security.auth.login.LoginException;
+
 public class ExtrremeBot extends DiscordBot {
 
     private final MusicManagerManager musicManager;
 
-    public ExtrremeBot() {
+    public ExtrremeBot() throws LoginException {
         super(System.getenv("TOKEN"));
 
         musicManager = new MusicManagerManager();

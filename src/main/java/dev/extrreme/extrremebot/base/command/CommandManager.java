@@ -1,4 +1,4 @@
-package dev.extrreme.extrremebot.commands;
+package dev.extrreme.extrremebot.base.command;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;

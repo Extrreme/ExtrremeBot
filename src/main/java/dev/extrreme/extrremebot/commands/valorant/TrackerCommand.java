@@ -1,6 +1,7 @@
 package dev.extrreme.extrremebot.commands.valorant;
 
-import dev.extrreme.extrremebot.commands.DiscordCommand;
+import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.utils.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
@@ -20,13 +21,15 @@ public class TrackerCommand extends DiscordCommand {
             return true;
         }
 
-        String valoUser = args[0];
+        String valoUser = StringUtils.concatenate(args, " ");
         if (!valoUser.contains("#")) {
             channel.sendMessage(sender.getAsMention() + "\nPlease specify a valid valorant username (needs #XXXXX)").queue();
             return true;
         }
 
-        String url = "https://tracker.gg/valorant/profile/riot/" + valoUser.replace("#", "%23") + "/overview";
+        String valoUserFormatted = valoUser.replace("#", "%23").replace(" ", "%20");
+        String url = "https://tracker.gg/valorant/profile/riot/" + valoUserFormatted + "/overview";
+
         MessageEmbed embed = new EmbedBuilder()
                 .setTitle(valoUser + "'s Valorant Tracker Profile", url)
                 .build();

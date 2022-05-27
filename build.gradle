@@ -4,14 +4,14 @@ plugins {
     id 'java'
 }
 
-group = 'dev.extrreme.extrremebot'
+group = 'dev.extrreme'
 version = '1.0'
 
 sourceCompatibility = JavaVersion.VERSION_17
 
 jar {
     manifest {
-        attributes 'Class-Path': '/libs/ExtrremeBot-1.0-all.jar', 'Main-Class': 'dev.extrreme.extrremebot.ExtrremeBot'
+        attributes 'Class-Path': '/libs/ExtrremeBot-1.0-all.jar', 'Main-Class': 'dev.extrreme.extrremebot.Main'
     }
 }
 repositories {

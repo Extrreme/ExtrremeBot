@@ -1,7 +1,7 @@
 package dev.extrreme.extrremebot.commands.music;
 
-import dev.extrreme.extrremebot.ExtrremeBot;
-import dev.extrreme.extrremebot.commands.DiscordCommand;
+import dev.extrreme.extrremebot.Main;
+import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.entities.*;
@@ -44,7 +44,7 @@ public class MusicPlayCommand extends DiscordCommand implements AudioSendHandler
         if (args[0].equalsIgnoreCase("oceanman") || args[0].equalsIgnoreCase("ocean-man")) {
             args[0] = "https://www.youtube.com/watch?v=vcaPiiFZu2o";
         }
-        ExtrremeBot.musicManager.loadAndPlay(channel, args[0]);
+        Main.getBot().getMusicManager().loadAndPlay(channel, args[0]);
         return true;
     }
 

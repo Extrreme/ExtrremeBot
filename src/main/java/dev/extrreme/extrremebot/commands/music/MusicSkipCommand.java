@@ -1,7 +1,7 @@
 package dev.extrreme.extrremebot.commands.music;
 
-import dev.extrreme.extrremebot.ExtrremeBot;
-import dev.extrreme.extrremebot.commands.DiscordCommand;
+import dev.extrreme.extrremebot.Main;
+import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.entities.*;
 import org.jetbrains.annotations.Nullable;
@@ -16,7 +16,7 @@ public class MusicSkipCommand extends DiscordCommand implements AudioSendHandler
 
     @Override
     public boolean execute(Guild guild, TextChannel channel, User sender, String... args) {
-        ExtrremeBot.musicManager.getMusicManager(guild).next();
+        Main.getBot().getMusicManager().getMusicManager(guild).next();
         return true;
     }
 

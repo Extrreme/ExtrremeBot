@@ -1,7 +1,7 @@
 package dev.extrreme.extrremebot.commands.music;
 
-import dev.extrreme.extrremebot.ExtrremeBot;
-import dev.extrreme.extrremebot.commands.DiscordCommand;
+import dev.extrreme.extrremebot.Main;
+import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -19,10 +19,10 @@ public class MusicRepeatCommand extends DiscordCommand {
             return true;
         }
         if (args[0].equalsIgnoreCase("on")) {
-            ExtrremeBot.musicManager.getMusicManager(channel.getGuild()).setRepeat(true);
+            Main.getBot().getMusicManager().getMusicManager(channel.getGuild()).setRepeat(true);
             channel.sendMessage(sender.getAsMention() + "\nI am now repeating the last queued track!").queue();
         } else if (args[0].equalsIgnoreCase("off")) {
-            ExtrremeBot.musicManager.getMusicManager(channel.getGuild()).setRepeat(false);
+            Main.getBot().getMusicManager().getMusicManager(channel.getGuild()).setRepeat(false);
             channel.sendMessage(sender.getAsMention() + "\nI am no longer repeating the last queued track!").queue();
         }
         return true;

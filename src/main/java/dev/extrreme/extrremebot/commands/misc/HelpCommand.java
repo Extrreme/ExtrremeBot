@@ -1,7 +1,7 @@
 package dev.extrreme.extrremebot.commands.misc;
 
-import dev.extrreme.extrremebot.ExtrremeBot;
-import dev.extrreme.extrremebot.commands.DiscordCommand;
+import dev.extrreme.extrremebot.Main;
+import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -15,7 +15,7 @@ public class HelpCommand extends DiscordCommand {
     @Override
     public boolean execute(Guild guild, TextChannel channel, User sender, String... args) {
         StringBuilder toSend = new StringBuilder("**Commands:** \n");
-        for (DiscordCommand discordCommand : ExtrremeBot.commandManager.getCommands()) {
+        for (DiscordCommand discordCommand : Main.getBot().getCommands()) {
             if (discordCommand.getLabel().equalsIgnoreCase("help")) {
                 continue;
             }

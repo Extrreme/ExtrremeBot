@@ -20,10 +20,10 @@ public class MusicRepeatCommand extends DiscordCommand {
         }
         if (args[0].equalsIgnoreCase("on")) {
             Main.getBot().getMusicManager().getMusicManager(channel.getGuild()).setRepeat(true);
-            channel.sendMessage(sender.getAsMention() + "\nI am now repeating the last queued track!").queue();
+            channel.sendMessage(sender.getAsMention() + "\nIndefinetly repeating the last queued track!").queue();
         } else if (args[0].equalsIgnoreCase("off")) {
             Main.getBot().getMusicManager().getMusicManager(channel.getGuild()).setRepeat(false);
-            channel.sendMessage(sender.getAsMention() + "\nI am no longer repeating the last queued track!").queue();
+            channel.sendMessage(sender.getAsMention() + "\nStopped repeating the last queued track!").queue();
         }
         return true;
     }

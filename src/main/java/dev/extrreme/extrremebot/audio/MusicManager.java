@@ -37,12 +37,17 @@ public class MusicManager extends AudioEventAdapter {
         }
     }
 
-    public void queue(AudioTrack track) {
+    public boolean queue(AudioTrack track) {
         if (!this.audioPlayer.startTrack(track, true)) {
-            this.queue.offer(track);
+            return this.queue.offer(track);
         } else {
             played.add(track);
+            return true;
         }
+    }
+
+    public AudioTrack getCurrentTrack() {
+        return this.audioPlayer.getPlayingTrack();
     }
 
     public void next() {
@@ -62,8 +67,16 @@ public class MusicManager extends AudioEventAdapter {
         }
     }
 
+    public void clear() {
+         this.queue.clear();
+    }
+
     public void setRepeat(boolean repeat) {
         this.isRepeat = repeat;
+    }
+
+    public boolean isRepeat() {
+        return this.isRepeat;
     }
 
     public List<AudioTrack> getPlayed() {

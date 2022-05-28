@@ -8,6 +8,7 @@ import dev.extrreme.extrremebot.commands.music.*;
 import dev.extrreme.extrremebot.commands.valorant.TrackerCommand;
 import dev.extrreme.extrremebot.sql.MySQL;
 import dev.extrreme.extrremebot.sql.SQLManager;
+import dev.extrreme.extrremebot.utils.StringUtils;
 
 import javax.security.auth.login.LoginException;
 
@@ -22,9 +23,16 @@ public class ExtrremeBot extends DiscordBot {
 
         musicManager = new MusicManagerManager();
 
-        String sqlUrl = MySQL.genURL(System.getenv("SQL_HOST") + ":" + System.getenv("SQL_PORT"),
-                System.getenv("SQL_USER"));
-        sqlManager = new SQLManager(new MySQL(sqlUrl, System.getenv("SQL_USER"), System.getenv("SQL_PASS")));
+        String host = System.getenv("SQL_HOST") + ":" + System.getenv("SQL_PORT");
+        String database = System.getenv("SQL_USER");
+
+        String user = System.getenv("SQL_USER");
+        String pass = System.getenv("SQL_PASS");
+
+        Main.log(StringUtils.concatenate(new String[]{host, database, user, pass}, ", "));
+        String sqlUrl = MySQL.genURL(host, database);
+        Main.log(sqlUrl);
+        sqlManager = new SQLManager(new MySQL(sqlUrl, user, pass));
 
         boolean test = sqlManager.createTable("test", new String[]{"test1, test2"},
                 new String[]{"INT(10)", "VARCHAR(255)"});

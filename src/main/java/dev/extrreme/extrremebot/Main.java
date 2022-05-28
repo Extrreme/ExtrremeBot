@@ -13,4 +13,8 @@ public class Main {
     public static ExtrremeBot getBot() {
         return bot;
     }
+
+    public static void log(String message) {
+        System.out.println("[LOG] " + message);
+    }
 }

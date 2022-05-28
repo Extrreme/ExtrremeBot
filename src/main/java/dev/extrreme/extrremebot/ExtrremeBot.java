@@ -35,7 +35,7 @@ public class ExtrremeBot extends DiscordBot {
         sqlManager = new SQLManager(new MySQL(sqlUrl, user, pass));
 
         boolean test = sqlManager.createTable("test", new String[]{"test1, test2"},
-                new String[]{"INT(10)", "VARCHAR(255)"});
+                new String[]{"VARCHAR(255)", "VARCHAR(255)"});
         Main.log("SQL connection:" + test);
 
         registerCommand(new HelpCommand());

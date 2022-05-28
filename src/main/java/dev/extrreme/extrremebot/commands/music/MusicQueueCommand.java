@@ -26,8 +26,11 @@ public class MusicQueueCommand extends DiscordCommand {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         for (AudioTrack track : queue) {
+            if (i > 10) {
+                break;
+            }
             AudioTrackInfo info = track.getInfo();
-            String line = i + ". " + info.title + " - " + info.author;
+            String line = i + ". " + info.title + " - " + info.author + "\n";
             sb.append(line);
             i++;
         }

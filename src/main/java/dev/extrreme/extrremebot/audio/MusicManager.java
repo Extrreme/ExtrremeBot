@@ -50,6 +50,10 @@ public class MusicManager extends AudioEventAdapter {
         return this.audioPlayer.getPlayingTrack();
     }
 
+    public BlockingQueue<AudioTrack> getQueue() {
+        return new LinkedBlockingQueue<>(this.queue);
+    }
+
     public void next() {
         AudioTrack track = null;
         if (!this.isRepeat || this.played.isEmpty()) {

@@ -12,8 +12,8 @@ import javax.security.auth.login.LoginException;
 import java.util.List;
 
 public class DiscordBot {
-
     private final String token;
+
     private JDA jda = null;
     private CommandManager commandManager = null;
 
@@ -22,33 +22,37 @@ public class DiscordBot {
         start();
     }
 
+    private void start() throws LoginException {
+        this.jda = JDABuilder.createDefault(token).build();
+        this.commandManager = new CommandManager();
+        this.jda.addEventListener(new CommandListener(this.commandManager));
+    }
+
     public void registerCommand(DiscordCommand command) {
-        commandManager.registerCommand(command);
+        this.commandManager.registerCommand(command);
     }
 
     public void unregisterCommand(DiscordCommand command) {
-        commandManager.unregisterCommand(command);
+        this.commandManager.unregisterCommand(command);
     }
 
     public void registerListener(ListenerAdapter listener) {
-        if (jda != null) {
-            jda.addEventListener(listener);
+        if (this.jda != null) {
+            this.jda.addEventListener(listener);
         }
     }
 
     public void unregisterListener(ListenerAdapter listener) {
-        if (jda != null) {
-            jda.removeEventListener(listener);
+        if (this.jda != null) {
+            this.jda.removeEventListener(listener);
         }
     }
 
-    private void start() throws LoginException {
-        jda = JDABuilder.createDefault(token).build();
-        commandManager = new CommandManager();
-        jda.addEventListener(new CommandListener(commandManager));
+    public JDA getJda() {
+        return this.jda;
     }
 
     public List<DiscordCommand> getCommands() {
-        return commandManager.getCommands();
+        return this.commandManager.getCommands();
     }
 }

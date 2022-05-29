@@ -6,11 +6,14 @@ import dev.extrreme.extrremebot.commands.misc.HelpCommand;
 import dev.extrreme.extrremebot.commands.misc.StockCommand;
 import dev.extrreme.extrremebot.commands.music.*;
 import dev.extrreme.extrremebot.commands.sql.SQLStatementCommand;
-import dev.extrreme.extrremebot.commands.valorant.TrackerCommand;
+import dev.extrreme.extrremebot.commands.valorant.SetValorantAccountCommand;
+import dev.extrreme.extrremebot.commands.valorant.TrackerValorantCommand;
+import dev.extrreme.extrremebot.commands.valorant.ViewValorantAccountCommand;
 
 import javax.security.auth.login.LoginException;
 
 public class ExtrremeBot extends DiscordBot {
+    public static final String VAL_ACCOUNT_TABLE = "valorantAccounts";
 
     private final MusicManagerManager musicManager;
 
@@ -18,6 +21,9 @@ public class ExtrremeBot extends DiscordBot {
         super(System.getenv("TOKEN"));
 
         musicManager = new MusicManagerManager();
+
+        Main.getSQLManager().createTable(VAL_ACCOUNT_TABLE, new String[]{"discordId", "valorantId"},
+                new String[]{"varchar(255) NOT NULL PRIMARY KEY", "VARCHAR(255)"});
 
         registerCommands();
     }
@@ -33,7 +39,9 @@ public class ExtrremeBot extends DiscordBot {
         registerCommand(new MusicClearCommand());
         registerCommand(new MusicQueueCommand());
 
-        registerCommand(new TrackerCommand());
+        registerCommand(new TrackerValorantCommand());
+        registerCommand(new SetValorantAccountCommand());
+        registerCommand(new ViewValorantAccountCommand());
 
         registerCommand(new SQLStatementCommand());
     }

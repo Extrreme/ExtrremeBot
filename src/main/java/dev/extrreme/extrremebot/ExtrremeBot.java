@@ -29,15 +29,14 @@ public class ExtrremeBot extends DiscordBot {
         String user = System.getenv("SQL_USER");
         String pass = System.getenv("SQL_PASS");
 
-        Main.log(StringUtils.concatenate(new String[]{host, database, user, pass}, ", "));
         String sqlUrl = MySQL.genURL(host, database);
-        Main.log(sqlUrl);
+
         sqlManager = new SQLManager(new MySQL(sqlUrl, user, pass));
 
-        boolean test = sqlManager.createTable("test", new String[]{"testA", "testB"},
-                new String[]{"varchar(255) NOT NULL PRIMARY KEY", "VARCHAR(255)"});
-        Main.log("SQL connection:" + test);
+        registerCommands();
+    }
 
+    private void registerCommands() {
         registerCommand(new HelpCommand());
 
         registerCommand(new StockCommand());
@@ -53,5 +52,9 @@ public class ExtrremeBot extends DiscordBot {
 
     public MusicManagerManager getMusicManager() {
         return this.musicManager;
+    }
+
+    public SQLManager getSqlManager() {
+        return this.sqlManager;
     }
 }

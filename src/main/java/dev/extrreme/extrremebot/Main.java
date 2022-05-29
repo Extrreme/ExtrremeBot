@@ -6,12 +6,11 @@ import dev.extrreme.extrremebot.sql.SQLManager;
 import javax.security.auth.login.LoginException;
 
 public class Main {
-    private static ExtrremeBot bot;
     private static SQLManager sql;
 
-    public static void main(String[] args) throws LoginException {
-        bot = new ExtrremeBot();
+    private static ExtrremeBot bot;
 
+    public static void main(String[] args) throws LoginException {
         String host = System.getenv("SQL_HOST") + ":" + System.getenv("SQL_PORT");
         String database = System.getenv("SQL_USER");
 
@@ -21,6 +20,8 @@ public class Main {
         String sqlUrl = MySQL.genURL(host, database);
 
         sql = new SQLManager(new MySQL(sqlUrl, user, pass));
+
+        bot = new ExtrremeBot();
     }
 
     public static ExtrremeBot getBot() {

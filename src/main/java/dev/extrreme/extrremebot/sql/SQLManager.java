@@ -559,10 +559,9 @@ public class SQLManager {
 	 */
 	public synchronized boolean createTable(String tableName, String[] columns, String[] types) {
 		Connection c = grabConnection();
-		StringBuilder query;
 
 		try {
-			query = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + "(");
+			StringBuilder query = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + "(");
 			boolean first = true;
 			for (int i = 0; i < columns.length && i < types.length; i++){
 				if (!first) {

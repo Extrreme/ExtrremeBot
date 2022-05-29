@@ -578,6 +578,7 @@ public class SQLManager {
 			}
 			query.append(");");
 
+			System.out.println(query);
 			// Query is assembled
 			Statement statement = c.createStatement();
 			statement.executeUpdate(query.toString());

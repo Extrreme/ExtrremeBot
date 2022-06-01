@@ -55,7 +55,7 @@ public class SQLManager {
 	public void closeConnection(Connection c){
 		try {
 			c.close();
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			Main.log("Error closing connection to SQL database!");
 		}
 	}
@@ -82,7 +82,7 @@ public class SQLManager {
 				} else {
 					found = res.getBytes(valueName);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				found = null;
 			}
 			res.close();
@@ -210,7 +210,7 @@ public class SQLManager {
 				} else {
 					found = res.getObject(valueName);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				found = null;
 			}
 
@@ -676,16 +676,15 @@ public class SQLManager {
 			List<Map<Object, Object>> list = new ArrayList<>();
 
 			while (res.next()) {
-				try {
-					Map<Object, Object> obs = new HashMap<>();
-					for (String col : columns) {
-						try {
-							Object o = res.getObject(col);
-							obs.put(col, o);
-						} catch (Exception ignored) {}
-					}
-					list.add(obs);
-				} catch (Exception ignored) {}
+				Map<Object, Object> obs = new HashMap<>();
+				for (String col : columns) {
+					try {
+						Object o = res.getObject(col);
+						obs.put(col, o);
+					} catch (SQLException ignored) {}
+				}
+				list.add(obs);
+
 			}
 
 			res.close();
@@ -718,16 +717,14 @@ public class SQLManager {
 			List<Map<Object, byte[]>> list = new ArrayList<>();
 
 			while (res.next()) {
-				try {
-					Map<Object, byte[]> obs = new HashMap<>();
-					for (String col : columns) {
-						try {
-							byte[] o = res.getBytes(col);
-							obs.put(col, o);
-						} catch (Exception ignored) {}
-					}
-					list.add(obs);
-				} catch (Exception ignored) {}
+				Map<Object, byte[]> obs = new HashMap<>();
+				for (String col : columns) {
+					try {
+						byte[] o = res.getBytes(col);
+						obs.put(col, o);
+					} catch (SQLException ignored) {}
+				}
+				list.add(obs);
 			}
 
 			res.close();
@@ -759,7 +756,7 @@ public class SQLManager {
 				try {
 					Object o = res.getObject(column);
 					list.add(o);
-				} catch (Exception ignored) {}
+				} catch (SQLException ignored) {}
 			}
 
 			res.close();

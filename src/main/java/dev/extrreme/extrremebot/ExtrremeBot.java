@@ -5,7 +5,6 @@ import dev.extrreme.extrremebot.audio.MusicManagerManager;
 import dev.extrreme.extrremebot.commands.misc.HelpCommand;
 import dev.extrreme.extrremebot.commands.misc.StockCommand;
 import dev.extrreme.extrremebot.commands.music.*;
-import dev.extrreme.extrremebot.commands.sql.SQLStatementCommand;
 import dev.extrreme.extrremebot.commands.valorant.SetValorantAccountCommand;
 import dev.extrreme.extrremebot.commands.valorant.TrackerValorantCommand;
 import dev.extrreme.extrremebot.commands.valorant.ViewValorantAccountCommand;
@@ -30,7 +29,6 @@ public class ExtrremeBot extends DiscordBot {
 
     private void registerCommands() {
         registerCommand(new HelpCommand());
-
         registerCommand(new StockCommand());
 
         registerCommand(new MusicPlayCommand());
@@ -42,8 +40,6 @@ public class ExtrremeBot extends DiscordBot {
         registerCommand(new TrackerValorantCommand());
         registerCommand(new SetValorantAccountCommand());
         registerCommand(new ViewValorantAccountCommand());
-
-        registerCommand(new SQLStatementCommand());
     }
 
     public MusicManagerManager getMusicManager() {

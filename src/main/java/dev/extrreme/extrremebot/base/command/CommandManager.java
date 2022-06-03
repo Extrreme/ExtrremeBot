@@ -8,8 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandManager {
-
+    private String prefix;
     private final List<DiscordCommand> commands = new ArrayList<>();
+
+    public CommandManager(String commandPrefix) {
+        this.prefix = commandPrefix;
+    }
+
+    public CommandManager() {
+        this("!");
+    }
+
+    public String getPrefix() {
+        return this.prefix;
+    }
+
+    public void setPrefix(String commandPrefix) {
+        this.prefix = commandPrefix;
+    }
 
     public void registerCommand(DiscordCommand command) {
         commands.add(command);

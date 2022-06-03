@@ -17,12 +17,12 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-        if (!message.startsWith("!")) {
+        if (!message.startsWith(manager.getPrefix())) {
             return;
         }
 
         String[] args = message.split(" ");
-        String command = args[0].replaceFirst("!", "");
+        String command = args[0].replaceFirst(manager.getPrefix(), "");
 
         manager.onCommand(event.getGuild(), event.getTextChannel(), event.getAuthor(), command,
                 Arrays.copyOfRange(args, 1, args.length));

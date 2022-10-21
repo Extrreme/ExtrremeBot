@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class MusicClearCommand extends DiscordCommand {
-
     public MusicClearCommand() {
         super("clear", "Clear the queue of songs");
     }

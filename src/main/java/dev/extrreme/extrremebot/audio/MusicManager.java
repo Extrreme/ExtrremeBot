@@ -1,93 +1,57 @@
 package dev.extrreme.extrremebot.audio;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MusicManager extends AudioEventAdapter {
+public class MusicManager {
 
-    private final AudioPlayer audioPlayer;
-    private final BlockingQueue<AudioTrack> queue;
+    private final Map<Long, GuildMusicManager> musicManagers;
+    private final AudioPlayerManager audioPlayerManager;
 
-    private final List<AudioTrack> played;
-    private final AudioPlayerSendHandler sendHandler;
+    public MusicManager() {
+        this.musicManagers = new HashMap<>();
+        this.audioPlayerManager = new DefaultAudioPlayerManager();
 
-    private boolean isRepeat = false;
-
-    public MusicManager(AudioPlayerManager manager) {
-        this.audioPlayer = manager.createPlayer();
-        this.queue = new LinkedBlockingQueue<>();
-        this.played = new LinkedList<>();
-        this.audioPlayer.addListener(this);
-        this.sendHandler = new AudioPlayerSendHandler(this.audioPlayer);
+        AudioSourceManagers.registerRemoteSources(audioPlayerManager);
+        AudioSourceManagers.registerLocalSource(audioPlayerManager);
     }
 
-    @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
-        if (endReason.mayStartNext) {
-            next();
-        }
+    public GuildMusicManager getMusicManager(Guild guild) {
+        return musicManagers.computeIfAbsent(guild.getIdLong(), (guildId) -> {
+            final GuildMusicManager musicManager = new GuildMusicManager(audioPlayerManager);
+            guild.getAudioManager().setSendingHandler(musicManager.getSendHandler());
+            return musicManager;
+        });
     }
 
-    public boolean queue(AudioTrack track) {
-        if (!this.audioPlayer.startTrack(track, true)) {
-            return this.queue.offer(track);
-        } else {
-            played.add(track);
-            return true;
-        }
-    }
+    public void loadAndPlay(TextChannel channel, String trackURL) {
+        final GuildMusicManager musicManager = getMusicManager(channel.getGuild());
 
-    public AudioTrack getCurrentTrack() {
-        return this.audioPlayer.getPlayingTrack();
-    }
-
-    public BlockingQueue<AudioTrack> getQueue() {
-        return new LinkedBlockingQueue<>(this.queue);
-    }
-
-    public void next() {
-        AudioTrack track = null;
-        if (!this.isRepeat || this.played.isEmpty()) {
-            track = this.queue.poll();
-            this.played.add(track);
-        } else {
-            AudioTrack trackTemp = this.played.get(played.size() - 1);
-            if (trackTemp != null) {
-                track = trackTemp.makeClone();
+        audioPlayerManager.loadItemOrdered(musicManager, trackURL, new AudioLoadResultHandler() {
+            @Override
+            public void trackLoaded(AudioTrack track) {
+                musicManager.queue(track);
+                channel.sendMessage("Adding to queue: " + track.getInfo().title + " by " + track.getInfo().author).queue();
             }
-        }
 
-        if (track != null) {
-            this.audioPlayer.startTrack(track, false);
-        }
-    }
+            @Override
+            public void playlistLoaded(AudioPlaylist playlist) {}
 
-    public void clear() {
-         this.queue.clear();
-    }
+            @Override
+            public void noMatches() {}
 
-    public void setRepeat(boolean repeat) {
-        this.isRepeat = repeat;
-    }
-
-    public boolean isRepeat() {
-        return this.isRepeat;
-    }
-
-    public List<AudioTrack> getPlayed() {
-        return new ArrayList<>(this.played);
-    }
-
-    public AudioPlayerSendHandler getSendHandler() {
-        return this.sendHandler;
+            @Override
+            public void loadFailed(FriendlyException exception) {}
+        });
     }
 }

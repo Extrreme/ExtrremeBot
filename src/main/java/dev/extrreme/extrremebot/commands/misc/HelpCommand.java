@@ -7,24 +7,13 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class HelpCommand extends DiscordCommand {
-
     public HelpCommand() {
-        super("help", "List all the commands.");
+        super("test", "List all the commands.");
     }
 
     @Override
     public boolean execute(Guild guild, TextChannel channel, User sender, String... args) {
-        StringBuilder toSend = new StringBuilder("**Commands:** \n");
-        for (DiscordCommand discordCommand : Main.getBot().getCommands()) {
-            if (discordCommand.getLabel().equalsIgnoreCase("help")) {
-                continue;
-            }
-            toSend.append("!").append(discordCommand.getLabel())
-                    .append(" - ")
-                    .append(discordCommand.getDescription())
-                    .append("\n");
-        }
-        channel.sendMessage(sender.getAsMention() + "\n" + toSend).complete();
+        channel.sendMessage(guild.getId()).queue();
         return true;
     }
 }

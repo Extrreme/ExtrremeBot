@@ -1,7 +1,6 @@
 package dev.extrreme.extrremebot.utils;
 
-public class StringUtils {
-
+public class StringUtility {
     public static String concatenate(String[] args, int start, int end, String between) {
         StringBuilder sb = new StringBuilder();
         for (int i = start; i < args.length && i <= end; i++) {

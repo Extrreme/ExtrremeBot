@@ -22,13 +22,13 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
 
     @Override
     public boolean canProvide() {
-        return this.audioPlayer.provide(this.frame);
+        return audioPlayer.provide(frame);
     }
 
     @Nullable
     @Override
     public ByteBuffer provide20MsAudio() {
-        return this.buffer.flip();
+        return buffer.flip();
     }
 
     @Override

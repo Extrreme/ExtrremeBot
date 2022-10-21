@@ -5,9 +5,8 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public abstract class DiscordCommand {
-
-    protected String label;
-    protected String description;
+    private final String label;
+    private final String description;
 
     public DiscordCommand(String label, String description) {
         this.label = label;
@@ -23,7 +22,7 @@ public abstract class DiscordCommand {
     }
 
     public void sendArgumentsError(TextChannel channel, User user) {
-        channel.sendMessage(user.getAsMention() + "\n Error, please check your arguments and try again.").complete();
+        channel.sendMessage(user.getAsMention() + "\nError, please check your command arguments and try again.").queue();
     }
 
     public abstract boolean execute(Guild guild, TextChannel channel, User sender, String... args);

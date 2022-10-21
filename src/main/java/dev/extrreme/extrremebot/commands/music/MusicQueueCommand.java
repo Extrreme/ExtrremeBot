@@ -12,7 +12,6 @@ import net.dv8tion.jda.api.entities.User;
 import java.util.concurrent.BlockingQueue;
 
 public class MusicQueueCommand extends DiscordCommand {
-
     public MusicQueueCommand() {
         super("queue", "View the music queue");
     }

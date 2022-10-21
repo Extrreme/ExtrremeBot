@@ -5,6 +5,7 @@ import dev.extrreme.extrremebot.base.command.CommandManager;
 import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,36 +24,29 @@ public class DiscordBot {
     }
 
     private void start() throws LoginException {
-        this.jda = JDABuilder.createDefault(token).build();
-        this.commandManager = new CommandManager();
-        this.jda.addEventListener(new CommandListener(this.commandManager));
+        jda = JDABuilder.createDefault(token).build();
+        commandManager = new CommandManager(this);
     }
 
     public void registerCommand(DiscordCommand command) {
-        this.commandManager.registerCommand(command);
+        commandManager.registerCommand(command);
     }
 
-    public void unregisterCommand(DiscordCommand command) {
-        this.commandManager.unregisterCommand(command);
+    public List<DiscordCommand> getCommands() {
+        return commandManager.getCommands();
     }
 
     public void registerListener(ListenerAdapter listener) {
-        if (this.jda != null) {
-            this.jda.addEventListener(listener);
-        }
-    }
-
-    public void unregisterListener(ListenerAdapter listener) {
-        if (this.jda != null) {
-            this.jda.removeEventListener(listener);
+        if (jda != null) {
+            jda.addEventListener(listener);
         }
     }
 
     public JDA getJda() {
-        return this.jda;
+        return jda;
     }
 
-    public List<DiscordCommand> getCommands() {
-        return this.commandManager.getCommands();
+    public SelfUser getSelf() {
+        return jda == null ? null : jda.getSelfUser();
     }
 }

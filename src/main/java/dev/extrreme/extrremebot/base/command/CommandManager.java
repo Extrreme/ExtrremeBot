@@ -1,5 +1,6 @@
 package dev.extrreme.extrremebot.base.command;
 
+import dev.extrreme.extrremebot.base.DiscordBot;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -8,23 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandManager {
-    private String prefix;
+    private final String prefix;
     private final List<DiscordCommand> commands = new ArrayList<>();
 
-    public CommandManager(String commandPrefix) {
-        this.prefix = commandPrefix;
+    public CommandManager(DiscordBot bot, String prefix) {
+        this.prefix = prefix;
+        bot.registerListener(new CommandListener(this));
     }
 
-    public CommandManager() {
-        this("!");
+    public CommandManager(DiscordBot bot) {
+        this(bot, "!");
     }
 
     public String getPrefix() {
-        return this.prefix;
-    }
-
-    public void setPrefix(String commandPrefix) {
-        this.prefix = commandPrefix;
+        return prefix;
     }
 
     public void registerCommand(DiscordCommand command) {

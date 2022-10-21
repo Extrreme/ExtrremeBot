@@ -5,7 +5,6 @@ import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.entities.*;
 
 public class MusicSkipCommand extends DiscordCommand {
-
     public MusicSkipCommand() {
         super("skip", "Skip the current song");
     }

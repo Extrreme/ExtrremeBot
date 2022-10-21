@@ -1,5 +1,6 @@
 package dev.extrreme.extrremebot.base.command;
 
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -7,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 
 public class CommandListener extends ListenerAdapter {
-
     private final CommandManager manager;
 
     public CommandListener(CommandManager manager) {
@@ -16,15 +16,18 @@ public class CommandListener extends ListenerAdapter {
     
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        User author = event.getAuthor();
         String message = event.getMessage().getContentRaw();
-        if (!message.startsWith(manager.getPrefix())) {
+
+        if (author.isBot() || !message.startsWith(manager.getPrefix())) {
             return;
         }
 
-        String[] args = message.split(" ");
-        String command = args[0].replaceFirst(manager.getPrefix(), "");
+        String[] split = message.split(" ");
 
-        manager.onCommand(event.getGuild(), event.getTextChannel(), event.getAuthor(), command,
-                Arrays.copyOfRange(args, 1, args.length));
+        String command = message.replaceFirst(manager.getPrefix(), "");
+        String[] args = Arrays.copyOfRange(split, 1, split.length);
+
+        manager.onCommand(event.getGuild(), event.getTextChannel(), author, command, args);
     }
 }

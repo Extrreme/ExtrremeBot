@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MusicPlayCommand extends DiscordCommand {
-
     private final Map<String, String> defaults = new HashMap<>();
 
     public MusicPlayCommand() {

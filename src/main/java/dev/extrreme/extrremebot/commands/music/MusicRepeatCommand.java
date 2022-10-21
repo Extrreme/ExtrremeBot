@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 public class MusicRepeatCommand extends DiscordCommand {
-
     public MusicRepeatCommand() {
         super("repeat", "Toggle repeating the last played song on/off!");
     }

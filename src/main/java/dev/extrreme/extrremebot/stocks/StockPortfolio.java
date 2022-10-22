@@ -14,19 +14,25 @@ public class StockPortfolio {
     public double getBalance() {
         return balance;
     }
-
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+    public void incrementBalance(double amount) {
+        this.balance+=amount;
+    }
+    public void decrementBalance(double amount) {
+        this.balance-=amount;
     }
 
     public Map<String, Double> getShares() {
         return new HashMap<>(shares);
     }
-
     public void setShares(Map<String, Double> shares) {
         this.shares = new HashMap<>(shares);
     }
-
+    public double getShares(String stock) {
+        return shares.containsKey(stock) ? shares.get(stock) : 0;
+    }
     public void addShares(String stock, double shares) {
         if (shares < 0) {
             throw new IllegalArgumentException("Cannot add negative shares");
@@ -36,6 +42,16 @@ public class StockPortfolio {
 
         double curr = this.shares.containsKey(stock.toUpperCase()) ? this.shares.get(stock) : 0;
         this.shares.put(stock.toUpperCase(), curr+shares);
+    }
+    public void removeShares(String stock, double shares) {
+        if (shares < 0) {
+            throw new IllegalArgumentException("Cannot remove negative shares");
+        } else if (shares == 0) {
+            return;
+        }
+
+        double curr = this.shares.containsKey(stock.toUpperCase()) ? this.shares.get(stock) : 0;
+        this.shares.put(stock.toUpperCase(), curr-shares);
     }
 
     public void forEach(BiConsumer<String, Double> action) {

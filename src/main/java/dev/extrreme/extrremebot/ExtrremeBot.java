@@ -3,7 +3,9 @@ package dev.extrreme.extrremebot;
 import dev.extrreme.extrremebot.base.DiscordBot;
 import dev.extrreme.extrremebot.audio.MusicManager;
 import dev.extrreme.extrremebot.commands.misc.HelpCommand;
+import dev.extrreme.extrremebot.commands.stocks.BuyShareCommand;
 import dev.extrreme.extrremebot.commands.stocks.PortfolioCommand;
+import dev.extrreme.extrremebot.commands.stocks.SellShareCommand;
 import dev.extrreme.extrremebot.commands.stocks.StockCommand;
 import dev.extrreme.extrremebot.commands.music.*;
 import dev.extrreme.extrremebot.listener.GuildListener;
@@ -34,6 +36,8 @@ public class ExtrremeBot extends DiscordBot {
 
         registerCommand(new StockCommand());
         registerCommand(new PortfolioCommand());
+        registerCommand(new BuyShareCommand());
+        registerCommand(new SellShareCommand());
 
         registerCommand(new MusicPlayCommand());
         registerCommand(new MusicSkipCommand());

@@ -5,7 +5,7 @@ import yahoofinance.YahooFinance;
 
 import java.io.IOException;
 
-public class StockUtility {
+public class StocksUtility {
     public static Stock getStock(String identifier) {
         Stock stock;
 

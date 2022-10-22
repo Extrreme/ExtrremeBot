@@ -1,7 +1,7 @@
-package dev.extrreme.extrremebot.commands.misc;
+package dev.extrreme.extrremebot.commands.stocks;
 
 import dev.extrreme.extrremebot.base.command.DiscordCommand;
-import dev.extrreme.extrremebot.utils.StockUtility;
+import dev.extrreme.extrremebot.utils.StocksUtility;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -18,7 +18,7 @@ public class StockCommand extends DiscordCommand {
         if (args.length < 1) {
             return false;
         }
-        Stock stock = StockUtility.getStock(args[0]);
+        Stock stock = StocksUtility.getStock(args[0]);
 
         if (stock == null) {
             channel.sendMessage(sender.getAsMention() + "\nCannot find the stock '" + args[0] + "'").queue();

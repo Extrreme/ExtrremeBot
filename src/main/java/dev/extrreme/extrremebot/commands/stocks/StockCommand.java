@@ -18,6 +18,8 @@ public class StockCommand extends BaseDiscordCommand {
         if (args.length < 1) {
             return false;
         }
+
+        System.out.println(args[0]);
         Stock stock = StocksUtility.getStock(args[0]);
 
         if (stock == null || !stock.isValid()) {

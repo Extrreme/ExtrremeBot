@@ -54,7 +54,6 @@ public class PortfolioCommand extends BaseDiscordCommand {
                 .setColor(Color.WHITE)
                 .setTitle("__**Your Portfolio**__")
                 .setDescription(sb)
-                .setFooter("__**Total Value:**__ $" + totalValue.doubleValue())
                 .build();
         channel.sendMessage(sender.getAsMention()).setEmbeds(embed).queue();
         return true;

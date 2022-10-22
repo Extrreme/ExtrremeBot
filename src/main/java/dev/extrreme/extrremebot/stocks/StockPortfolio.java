@@ -40,8 +40,8 @@ public class StockPortfolio {
             return;
         }
 
-        double curr = this.shares.containsKey(stock.toUpperCase()) ? this.shares.get(stock) : 0;
-        this.shares.put(stock.toUpperCase(), curr+shares);
+        double curr = this.shares.containsKey(stock) ? this.shares.get(stock) : 0;
+        this.shares.put(stock, curr+shares);
     }
     public void removeShares(String stock, double shares) {
         if (shares < 0) {
@@ -50,8 +50,13 @@ public class StockPortfolio {
             return;
         }
 
-        double curr = this.shares.containsKey(stock.toUpperCase()) ? this.shares.get(stock) : 0;
-        this.shares.put(stock.toUpperCase(), curr-shares);
+        double curr = this.shares.containsKey(stock) ? this.shares.get(stock) : 0;
+
+        if (curr-shares > 0) {
+            this.shares.put(stock, curr - shares);
+        } else {
+            this.shares.remove(stock);
+        }
     }
 
     public void forEach(BiConsumer<String, Double> action) {

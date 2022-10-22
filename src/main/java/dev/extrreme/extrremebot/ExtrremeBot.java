@@ -23,8 +23,6 @@ public class ExtrremeBot extends DiscordBot {
         registerCommands();
 
         System.out.println("ExtrremeBot successfully started");
-
-        System.out.println("Checking stock price of GME: " + StocksUtility.getStock("GME").getQuote().getPrice());
     }
 
     private void registerListeners() {

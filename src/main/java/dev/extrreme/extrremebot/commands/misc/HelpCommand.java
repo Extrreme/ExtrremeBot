@@ -20,14 +20,14 @@ public class HelpCommand extends BaseDiscordCommand {
         String prefix = Main.getBot().getCommandManager().getPrefix();
         Map<String, List<DiscordCommand>> categorized = Main.getBot().getCommandManager().getByCategories();
 
-        StringBuilder sb = new StringBuilder("__**Commands:**__");
+        StringBuilder sb = new StringBuilder("__**Commands:**__\n\n");
         for (String category : categorized.keySet()) {
-            sb.append("__").append(category).append(":").append("__");
+            sb.append("__").append(category).append(":").append("__\n");
             List<DiscordCommand> commands = categorized.get(category);
             for (DiscordCommand command : commands) {
-                sb.append(prefix).append(command.getLabel()).append(": ").append(command.getDescription());
+                sb.append(prefix).append(command.getLabel()).append(": ").append(command.getDescription()).append("\n");
             }
-            sb.append("\n\n");
+            sb.append("\n");
         }
 
         channel.sendMessage(sender.getAsMention() + "\n" + sb).queue();

@@ -62,4 +62,8 @@ public class StockPortfolio {
     public void forEach(BiConsumer<String, Double> action) {
         getShares().forEach(action);
     }
+
+    public int size() {
+        return shares.size();
+    }
 }

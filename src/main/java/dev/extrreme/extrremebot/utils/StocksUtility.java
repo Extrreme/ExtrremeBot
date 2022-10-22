@@ -12,9 +12,10 @@ public class StocksUtility {
         try {
             stock = YahooFinance.get(identifier);
         } catch (IOException e) {
+            System.out.println("Error connecting to yahoo finance");
             return null;
         }
 
-        return stock == null || !stock.isValid() ? null : stock;
+        return (stock == null || !stock.isValid()) ? null : stock;
     }
 }

@@ -25,7 +25,7 @@ public class PortfolioCommand extends BaseDiscordCommand {
         UserData data = UserDataManager.load(sender.getIdLong(), guild.getIdLong());
         StockPortfolio portfolio = data.getPortfolio();
 
-        StringBuilder sb = new StringBuilder("__**Your Portfolio:**__\n\n");
+        StringBuilder sb = new StringBuilder();
         sb.append("__Available Capital:__ $").append(portfolio.getBalance()).append("\n\n");
 
         DoubleAdder totalValue = new DoubleAdder();
@@ -45,16 +45,18 @@ public class PortfolioCommand extends BaseDiscordCommand {
                 totalValue.add(value);
             });
         } else {
-            sb.append("*N/A*");
+            sb.append("*N/A*\n");
         }
+
+        sb.append("\n__**Total Value:**__ $").append(totalValue.doubleValue());
 
         MessageEmbed embed = new EmbedBuilder()
                 .setColor(Color.WHITE)
-                .setTitle("__**Your Portfolio:**__")
+                .setTitle("__**Your Portfolio**__")
                 .setDescription(sb)
                 .setFooter("__**Total Value:**__ $" + totalValue.doubleValue())
                 .build();
-        channel.sendMessage(sender.getAsMention() + "\n" + sb).setEmbeds(embed).queue();
+        channel.sendMessage(sender.getAsMention()).setEmbeds(embed).queue();
         return true;
     }
 

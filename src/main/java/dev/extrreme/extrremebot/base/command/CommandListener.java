@@ -25,7 +25,7 @@ public class CommandListener extends ListenerAdapter {
 
         String[] split = message.split(" ");
 
-        String command = message.replaceFirst(manager.getPrefix(), "");
+        String command = split[0].replaceFirst(manager.getPrefix(), "");
         String[] args = Arrays.copyOfRange(split, 1, split.length);
 
         manager.onCommand(event.getGuild(), event.getTextChannel(), author, command, args);

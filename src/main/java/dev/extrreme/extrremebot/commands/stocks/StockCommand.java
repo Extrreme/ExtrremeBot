@@ -22,6 +22,7 @@ public class StockCommand extends BaseDiscordCommand {
         System.out.println(args[0]);
         Stock stock = StocksUtility.getStock(args[0]);
 
+        System.out.println("got stock");
         if (stock == null || !stock.isValid()) {
             channel.sendMessage(sender.getAsMention() + "\nCannot find the stock '" + args[0] + "'").queue();
             return true;

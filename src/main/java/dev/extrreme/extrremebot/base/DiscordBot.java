@@ -26,7 +26,7 @@ public class DiscordBot {
 
     private void start() throws LoginException {
         jda = JDABuilder.createDefault(token)
-                .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                //.enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();
         commandManager = new CommandManager(this);
     }

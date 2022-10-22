@@ -7,6 +7,7 @@ import dev.extrreme.extrremebot.commands.stocks.PortfolioCommand;
 import dev.extrreme.extrremebot.commands.stocks.StockCommand;
 import dev.extrreme.extrremebot.commands.music.*;
 import dev.extrreme.extrremebot.listener.GuildListener;
+import dev.extrreme.extrremebot.utils.StocksUtility;
 
 import javax.security.auth.login.LoginException;
 
@@ -20,6 +21,10 @@ public class ExtrremeBot extends DiscordBot {
 
         registerListeners();
         registerCommands();
+
+        System.out.println("ExtrremeBot successfully started");
+
+        System.out.println("Checking stock price of GME: " + StocksUtility.getStock("GME").getQuote().getPrice());
     }
 
     private void registerListeners() {

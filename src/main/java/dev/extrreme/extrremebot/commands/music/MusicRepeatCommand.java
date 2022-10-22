@@ -1,12 +1,12 @@
 package dev.extrreme.extrremebot.commands.music;
 
 import dev.extrreme.extrremebot.Main;
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class MusicRepeatCommand extends DiscordCommand {
+public class MusicRepeatCommand extends BaseDiscordCommand {
     public MusicRepeatCommand() {
         super("repeat", "Toggle repeating the last played song on/off!");
     }
@@ -25,5 +25,10 @@ public class MusicRepeatCommand extends DiscordCommand {
             channel.sendMessage(sender.getAsMention() + "\nStopped repeating the last queued track!").queue();
         }
         return true;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Music";
     }
 }

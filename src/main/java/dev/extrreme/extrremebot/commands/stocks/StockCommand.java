@@ -1,6 +1,6 @@
 package dev.extrreme.extrremebot.commands.stocks;
 
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import dev.extrreme.extrremebot.utils.StocksUtility;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.User;
 import yahoofinance.Stock;
 import yahoofinance.quotes.stock.StockQuote;
 
-public class StockCommand extends DiscordCommand {
+public class StockCommand extends BaseDiscordCommand {
     public StockCommand() {
         super("stock", "Get the price of the specified stock.");
     }
@@ -30,5 +30,10 @@ public class StockCommand extends DiscordCommand {
         channel.sendMessage(sender.getAsMention() + "\n" +  stock.getName() + " (" + stock.getSymbol() + ") Price: "
                 + quote.getPrice() + " (" + stock.getCurrency() + ")").queue();
         return true;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Stocks";
     }
 }

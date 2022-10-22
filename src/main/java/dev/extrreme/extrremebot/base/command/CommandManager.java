@@ -1,12 +1,15 @@
 package dev.extrreme.extrremebot.base.command;
 
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import dev.extrreme.extrremebot.base.DiscordBot;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandManager {
     private final String prefix;
@@ -35,6 +38,19 @@ public class CommandManager {
 
     public List<DiscordCommand> getCommands() {
         return new ArrayList<>(commands);
+    }
+
+    public Map<String, List<DiscordCommand>> getByCategories() {
+        Map<String, List<DiscordCommand>> sorted = new HashMap<>();
+        commands.forEach(command -> {
+            String cat = command.getCategory();
+            if (!sorted.containsKey(cat)) {
+                sorted.put(cat, new ArrayList<>());
+            }
+            sorted.get(cat).add(command);
+        });
+
+        return sorted;
     }
 
     public void onCommand(Guild guild, TextChannel channel, User user, String command, String... args) {

@@ -15,6 +15,6 @@ public class StocksUtility {
             return null;
         }
 
-        return stock == null || stock.isValid() ? null : stock;
+        return stock == null || !stock.isValid() ? null : stock;
     }
 }

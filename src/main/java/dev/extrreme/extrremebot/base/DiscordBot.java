@@ -1,17 +1,14 @@
 package dev.extrreme.extrremebot.base;
 
-import dev.extrreme.extrremebot.base.command.CommandListener;
 import dev.extrreme.extrremebot.base.command.CommandManager;
 import dev.extrreme.extrremebot.base.command.DiscordCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
-import java.util.List;
 
 public class DiscordBot {
     private final String token;
@@ -35,8 +32,8 @@ public class DiscordBot {
         commandManager.registerCommand(command);
     }
 
-    public List<DiscordCommand> getCommands() {
-        return commandManager.getCommands();
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public void registerListener(ListenerAdapter listener) {

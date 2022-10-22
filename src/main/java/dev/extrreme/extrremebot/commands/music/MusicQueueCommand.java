@@ -3,7 +3,7 @@ package dev.extrreme.extrremebot.commands.music;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import dev.extrreme.extrremebot.Main;
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.concurrent.BlockingQueue;
 
-public class MusicQueueCommand extends DiscordCommand {
+public class MusicQueueCommand extends BaseDiscordCommand {
     public MusicQueueCommand() {
         super("queue", "View the music queue");
     }
@@ -38,5 +38,10 @@ public class MusicQueueCommand extends DiscordCommand {
 
         channel.sendMessage(sender.getAsMention()).setEmbeds(eb.build()).complete();
         return true;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Music";
     }
 }

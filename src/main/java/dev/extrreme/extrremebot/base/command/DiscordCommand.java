@@ -26,4 +26,6 @@ public abstract class DiscordCommand {
     }
 
     public abstract boolean execute(Guild guild, TextChannel channel, User sender, String... args);
+
+    public abstract String getCategory();
 }

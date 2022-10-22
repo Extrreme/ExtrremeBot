@@ -1,14 +1,14 @@
 package dev.extrreme.extrremebot.commands.music;
 
 import dev.extrreme.extrremebot.Main;
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MusicPlayCommand extends DiscordCommand {
+public class MusicPlayCommand extends BaseDiscordCommand {
     private final Map<String, String> defaults = new HashMap<>();
 
     public MusicPlayCommand() {
@@ -49,5 +49,10 @@ public class MusicPlayCommand extends DiscordCommand {
 
     private boolean isYoutubeURL(String url) {
         return url.contains("youtube") || url.contains("youtu.be");
+    }
+
+    @Override
+    public String getCategory() {
+        return "Music";
     }
 }

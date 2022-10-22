@@ -1,10 +1,10 @@
 package dev.extrreme.extrremebot.commands.music;
 
 import dev.extrreme.extrremebot.Main;
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import net.dv8tion.jda.api.entities.*;
 
-public class MusicSkipCommand extends DiscordCommand {
+public class MusicSkipCommand extends BaseDiscordCommand {
     public MusicSkipCommand() {
         super("skip", "Skip the current song");
     }
@@ -15,5 +15,10 @@ public class MusicSkipCommand extends DiscordCommand {
         Main.getBot().getMusicManager().getMusicManager(guild).next();
         channel.sendMessage(sender.getAsMention() + "\nSkipped " + current).queue();
         return true;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Music";
     }
 }

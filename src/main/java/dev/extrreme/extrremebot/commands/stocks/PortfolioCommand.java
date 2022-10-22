@@ -1,6 +1,6 @@
 package dev.extrreme.extrremebot.commands.stocks;
 
-import dev.extrreme.extrremebot.base.command.DiscordCommand;
+import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import dev.extrreme.extrremebot.stocks.StockPortfolio;
 import dev.extrreme.extrremebot.userdata.UserData;
 import dev.extrreme.extrremebot.userdata.UserDataManager;
@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 
-public class PortfolioCommand extends DiscordCommand {
+public class PortfolioCommand extends BaseDiscordCommand {
     public PortfolioCommand() {
         super("portfolio", "View your stock portfolio");
     }
@@ -24,5 +24,10 @@ public class PortfolioCommand extends DiscordCommand {
 
         channel.sendMessage(sender.getAsMention() + "\n" + sb).queue();
         return true;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Stocks";
     }
 }

@@ -48,10 +48,10 @@ public class SellShareCommand extends BaseDiscordCommand {
                 return false;
             }
 
-            portfolio.decrementBalance(price);
-            portfolio.addShares(stock.getSymbol(), shares);
+            portfolio.incrementBalance(price);
+            portfolio.removeShares(stock.getSymbol(), shares);
 
-            channel.sendMessage(sender.getAsMention() + "Successfully purchased " + shares + "x of " +
+            channel.sendMessage(sender.getAsMention() + "Successfully sold " + shares + "x of " +
                     stock.getSymbol()).queue();
             return true;
         });

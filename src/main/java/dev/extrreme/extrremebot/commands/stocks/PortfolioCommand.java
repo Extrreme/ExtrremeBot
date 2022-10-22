@@ -5,11 +5,14 @@ import dev.extrreme.extrremebot.stocks.StockPortfolio;
 import dev.extrreme.extrremebot.userdata.UserData;
 import dev.extrreme.extrremebot.userdata.UserDataManager;
 import dev.extrreme.extrremebot.utils.StocksUtility;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import yahoofinance.Stock;
 
+import java.awt.*;
 import java.util.concurrent.atomic.DoubleAdder;
 
 public class PortfolioCommand extends BaseDiscordCommand {
@@ -25,27 +28,33 @@ public class PortfolioCommand extends BaseDiscordCommand {
         StringBuilder sb = new StringBuilder("__**Your Portfolio:**__\n\n");
         sb.append("__Available Capital:__ $").append(portfolio.getBalance()).append("\n\n");
 
+        DoubleAdder totalValue = new DoubleAdder();
+        totalValue.add(portfolio.getBalance());
+
         sb.append("__Shares:__\n");
         if (portfolio.size() > 0) {
-            DoubleAdder totalValue = new DoubleAdder();
             portfolio.forEach((symbol, shares) -> {
                 Stock stock = StocksUtility.getStock(symbol);
                 if (stock == null) {
                     return;
                 }
                 double value = stock.getQuote().getPrice().doubleValue() * shares;
-                sb.append("   __").append(stock.getSymbol()).append(":__ ").append(shares).append("x *($")
+                sb.append("- **").append(stock.getSymbol()).append(":** ").append(shares).append("x *($")
                         .append(value).append(")*\n");
 
                 totalValue.add(value);
             });
-
-            sb.append("\n**Total Value:** $").append(totalValue.doubleValue());
         } else {
             sb.append("*N/A*");
         }
 
-        channel.sendMessage(sender.getAsMention() + "\n" + sb).queue();
+        MessageEmbed embed = new EmbedBuilder()
+                .setColor(Color.WHITE)
+                .setTitle("__**Your Portfolio:**__")
+                .setDescription(sb)
+                .setFooter("__**Total Value:**__ $" + totalValue.doubleValue())
+                .build();
+        channel.sendMessage(sender.getAsMention() + "\n" + sb).setEmbeds(embed).queue();
         return true;
     }
 

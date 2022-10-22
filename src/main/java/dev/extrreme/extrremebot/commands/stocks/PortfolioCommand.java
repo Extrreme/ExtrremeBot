@@ -4,9 +4,13 @@ import dev.extrreme.extrremebot.commands.BaseDiscordCommand;
 import dev.extrreme.extrremebot.stocks.StockPortfolio;
 import dev.extrreme.extrremebot.userdata.UserData;
 import dev.extrreme.extrremebot.userdata.UserDataManager;
+import dev.extrreme.extrremebot.utils.StocksUtility;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import yahoofinance.Stock;
+
+import java.util.concurrent.atomic.DoubleAdder;
 
 public class PortfolioCommand extends BaseDiscordCommand {
     public PortfolioCommand() {
@@ -19,8 +23,21 @@ public class PortfolioCommand extends BaseDiscordCommand {
         StockPortfolio portfolio = data.getPortfolio();
 
         StringBuilder sb = new StringBuilder("__**Your Portfolio:**__\n\n");
-        sb.append("Capital: $").append(portfolio.getBalance()).append("\n\n");
-        portfolio.forEach((stock, shares) -> sb.append(stock).append(": ").append(shares).append("x\n"));
+        sb.append("**Available Capital:** $").append(portfolio.getBalance()).append("\n\n");
+
+        DoubleAdder totalValue = new DoubleAdder();
+        portfolio.forEach((symbol, shares) ->  {
+            Stock stock = StocksUtility.getStock(symbol);
+            if (stock == null) {
+                return;
+            }
+            double value = stock.getQuote().getPrice().doubleValue()*shares;
+            sb.append("__").append(stock.getSymbol()).append(":__ ").append(shares).append("x *($")
+                    .append(value).append(")*\n");
+
+            totalValue.add(value);
+        });
+        sb.append("\n**Total Value:** ").append(totalValue.doubleValue());
 
         channel.sendMessage(sender.getAsMention() + "\n" + sb).queue();
         return true;
